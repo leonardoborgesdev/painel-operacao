@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Operação</title>
+<style>
+:root{
+  --fundo:#0a0c11; --carta:#12161f; --alto:#171c28; --linha:#222a3a;
+  --texto:#eaedf4; --fraco2:#8b93a8;
+  --forte:#ff8a3d; --ok:#3ddc97; --azul:#5aa9ff; --roxo:#a78bfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--fundo);color:var(--texto);
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased}
+.limite{max-width:1240px;margin:0 auto;padding:26px 20px 80px}
+h1{font-size:25px;letter-spacing:-.5px;font-weight:700}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--fraco2);font-weight:600;margin:38px 0 13px}
+a{color:var(--azul);text-decoration:none}
+a:hover{text-decoration:underline}
+.topo{display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--linha)}
+.pill{background:var(--carta);border:1px solid var(--linha);border-radius:99px;
+  padding:5px 13px;font-size:12.5px;color:var(--fraco2)}
+.viva{display:inline-block;width:7px;height:7px;border-radius:99px;
+  background:var(--ok);margin-right:7px;vertical-align:middle}
+
+.heroi{display:grid;gap:14px;margin-top:22px;
+  grid-template-columns:minmax(280px,1fr) minmax(260px,340px)}
+@media(max-width:820px){.heroi{grid-template-columns:1fr}}
+.carta{background:var(--carta);border:1px solid var(--linha);border-radius:14px;
+  padding:18px 20px}
+.rotulo{color:var(--fraco2);font-size:11px;text-transform:uppercase;
+  letter-spacing:1.2px;font-weight:600}
+.gigante{font-size:46px;font-weight:750;letter-spacing:-2px;line-height:1.05;
+  margin-top:6px;font-variant-numeric:tabular-nums}
+.sub{color:var(--fraco2);font-size:13px;margin-top:5px}
+
+.anel{display:flex;align-items:center;gap:18px}
+.anel svg{flex:0 0 auto}
+.pct{font-size:29px;font-weight:750;letter-spacing:-1px}
+
+.tiras{display:grid;gap:11px;margin-top:14px;
+  grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
+.tira{background:var(--carta);border:1px solid var(--linha);border-radius:12px;
+  padding:13px 15px}
+.tira .n{font-size:23px;font-weight:700;letter-spacing:-.7px;margin-top:4px;
+  font-variant-numeric:tabular-nums}
+
+.grafico{width:100%;height:180px;display:block}
+.eixo{fill:var(--fraco2);font-size:10px}
+
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{text-align:right;color:var(--fraco2);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:1px;padding:10px 11px;
+  border-bottom:1px solid var(--linha);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:12px 11px;border-bottom:1px solid #171d29;text-align:right;
+  white-space:nowrap}
+tbody tr:hover{background:var(--alto)}
+.perfil{font-weight:650}
+.marca{font-size:10.5px;color:var(--fraco2);font-weight:400;margin-left:7px;
+  border:1px solid var(--linha);border-radius:99px;padding:1px 7px}
+.mini{vertical-align:middle}
+
+.slot{display:flex;gap:15px;align-items:center;padding:11px 0;
+  border-bottom:1px solid #171d29}
+.slot:last-child{border-bottom:0}
+.hora{font-weight:700;color:var(--forte);min-width:60px;
+  font-variant-numeric:tabular-nums}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:var(--alto);border:1px solid var(--linha);border-radius:99px;
+  padding:3px 11px;font-size:12.5px}
+.st{color:var(--roxo)}
+
+.lista{list-style:none;font-size:13.5px}
+.lista li{padding:9px 0;border-bottom:1px solid #171d29;display:flex;
+  justify-content:space-between;gap:12px;align-items:center}
+.lista li:last-child{border-bottom:0}
+.recado{background:var(--carta);border:1px solid var(--linha);
+  border-left:3px solid var(--forte);border-radius:11px;padding:13px 16px;
+  color:var(--fraco2);font-size:13.5px;margin-top:13px}
+.vazio{color:var(--fraco2);padding:22px 0;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="limite">
+
+  <div class="topo">
+    <h1>Operação</h1>
+    <div class="pill"><span class="viva"></span><span id="quando">carregando…</span></div>
+  </div>
+
+  <div class="heroi">
+    <div class="carta">
+      <div class="rotulo">Views da operação</div>
+      <div class="gigante" id="views">—</div>
+      <div class="sub" id="ritmo"></div>
+      <svg class="grafico" id="grafico" viewBox="0 0 700 180" preserveAspectRatio="none"></svg>
+      <div class="sub" id="legGrafico"></div>
+    </div>
+
+    <div class="carta">
+      <div class="rotulo">Meta — 1 milhão</div>
+      <div class="anel" style="margin-top:12px">
+        <svg width="112" height="112" viewBox="0 0 112 112">
+          <circle cx="56" cy="56" r="48" fill="none" stroke="#1c2231" stroke-width="12"/>
+          <circle id="arco" cx="56" cy="56" r="48" fill="none" stroke="url(#g)"
+                  stroke-width="12" stroke-linecap="round"
+                  transform="rotate(-90 56 56)" stroke-dasharray="0 999"/>
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ffc46b"/>
+          </linearGradient></defs>
+        </svg>
+        <div>
+          <div class="pct" id="pct">—</div>
+          <div class="sub" id="faltam"></div>
+        </div>
+      </div>
+      <div class="sub" id="previsao" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <div class="tiras" id="tiras"></div>
+
+  <h2>Canais conectados</h2>
+  <div class="carta" style="padding:4px 8px">
+    <table>
+      <thead><tr>
+        <th>Perfil</th><th>7 dias</th><th>Seg.</th><th>Views</th><th>Likes</th>
+        <th>Coment.</th><th>Alcance</th><th>Eng.</th><th>Cota 24h</th>
+      </tr></thead>
+      <tbody id="canais"></tbody>
+    </table>
+  </div>
+
+  <h2>Calendário — todo post leva story</h2>
+  <div class="carta" id="calendario"></div>
+  <div class="recado">
+    Horários de Brasília. Quem dispara é o cron do GitHub, que roda em UTC e
+    <b>pode atrasar uns 20 minutos</b> em horário de pico — o sistema aceita até
+    100 minutos de folga, porque atrasado é melhor que não postado.
+  </div>
+
+  <h2>Últimos publicados</h2>
+  <div class="carta"><ul class="lista" id="recentes"></ul></div>
+
+  <h2>Postar fora do horário</h2>
+  <div class="recado">
+    <a href="https://github.com/leonardoborgesdev/operacao-nuvem/actions/workflows/publica.yml"
+       target="_blank" rel="noopener">Actions → publica → Run workflow</a> —
+    vazio segue a agenda, ou escreva os perfis separados por espaço.
+    <a href="https://github.com/leonardoborgesdev/operacao-nuvem/actions/workflows/dev.yml"
+       target="_blank" rel="noopener">O canal dev</a> puxa sozinho do AutoReels.
+  </div>
+
+</div>
+
+<script>
+const RAIZ = "https://ainpiqtxjedstmfnhhzn.supabase.co/storage/v1/object/public/midias/estado/";
+const PESSOAIS = ["leoo_borgees"];   // pessoal dele, fora do placar da fazenda
+const META = 1e6;
+
+const n = v => (v||0).toLocaleString("pt-BR");
+const curto = v => v>=1e6 ? (v/1e6).toFixed(2).replace(".",",")+" mi"
+                 : v>=1e3 ? (v/1e3).toFixed(1).replace(".",",")+" mil" : n(v);
+
+const pega = async a => { try{
+  const r = await fetch(RAIZ+a+"?t="+Date.now()); return r.ok? r.json():null;
+}catch(e){ return null; } };
+
+function sparkline(vals){
+  if(!vals.length) return "";
+  const mx = Math.max(...vals, 1), L = 78, A = 20;
+  const pts = vals.map((v,i)=>
+    `${(i/(vals.length-1||1)*L).toFixed(1)},${(A-v/mx*(A-3)).toFixed(1)}`).join(" ");
+  return `<svg class="mini" width="${L}" height="${A}" viewBox="0 0 ${L} ${A}">
+    <polyline points="${pts}" fill="none" stroke="#5aa9ff" stroke-width="1.6"
+      stroke-linejoin="round" stroke-linecap="round" opacity=".9"/></svg>`;
+}
+
+function barras(dias){
+  const chaves = Object.keys(dias).sort().slice(-30);
+  if(!chaves.length) return {svg:"", legenda:"sem série ainda", media:0};
+  const val = chaves.map(k => Object.values(dias[k]||{})
+    .filter(p => p && typeof p === "object")
+    .reduce((a,p)=>a+(p.views||0),0));
+  const mx = Math.max(...val,1), W = 700, H = 180, g = 3;
+  const w = W/chaves.length;
+  const barrinhas = val.map((v,i)=>{
+    const h = Math.max(2, v/mx*(H-26));
+    return `<rect x="${(i*w+g/2).toFixed(1)}" y="${(H-22-h).toFixed(1)}"
+      width="${(w-g).toFixed(1)}" height="${h.toFixed(1)}" rx="2"
+      fill="${i===val.length-1?'#ff8a3d':'#2f3d57'}"/>`;
+  }).join("");
+  const rot = (k)=> k.slice(8)+"/"+k.slice(5,7);
+  const eixo = `<text class="eixo" x="2" y="${H-6}">${rot(chaves[0])}</text>
+    <text class="eixo" x="${W-2}" y="${H-6}" text-anchor="end">${rot(chaves.at(-1))}</text>`;
+  const soma = val.reduce((a,b)=>a+b,0);
+  return {svg: barrinhas+eixo,
+          legenda: `views por dia — ${chaves.length} dias, pico de ${curto(mx)}`,
+          media: soma/chaves.length};
+}
+
+(async () => {
+  const m = await pega("metricas.json");
+  if(!m){ document.getElementById("quando").textContent="não li os dados"; return; }
+
+  const P = m.perfis||{}, nomes = Object.keys(P);
+  const op = nomes.filter(k=>!PESSOAIS.includes(k));
+  const soma  = c => nomes.reduce((a,k)=>a+(P[k][c]||0),0);
+  const somaOp= c => op.reduce((a,k)=>a+(P[k][c]||0),0);
+
+  document.getElementById("quando").textContent = "atualizado " +
+    new Date(m.quando).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",
+      hour:"2-digit",minute:"2-digit"});
+
+  const v = somaOp("views");
+  document.getElementById("views").textContent = curto(v);
+
+  const g = barras(m.dias||{});
+  document.getElementById("grafico").innerHTML = g.svg;
+  document.getElementById("legGrafico").textContent = g.legenda;
+  document.getElementById("ritmo").textContent = g.media
+    ? `média de ${curto(Math.round(g.media))} views/dia` : "";
+
+  const pct = Math.min(100, v/META*100), C = 2*Math.PI*48;
+  document.getElementById("arco").setAttribute("stroke-dasharray",
+    `${(C*pct/100).toFixed(1)} ${C.toFixed(1)}`);
+  document.getElementById("pct").textContent = pct.toFixed(1).replace(".",",")+"%";
+  document.getElementById("faltam").textContent = "faltam "+curto(Math.max(0,META-v));
+  document.getElementById("previsao").textContent = g.media>0
+    ? `No ritmo de hoje, 1 milhão em ~${Math.ceil((META-v)/g.media)} dias.`
+    : "Sem série diária suficiente pra projetar.";
+
+  const tira=(r,x)=>`<div class="tira"><div class="rotulo">${r}</div><div class="n">${x}</div></div>`;
+  document.getElementById("tiras").innerHTML =
+      tira("Likes", curto(soma("likes")))
+    + tira("Comentários", n(soma("coments")))
+    + tira("Alcance", curto(soma("alcance")))
+    + tira("Salvos", n(soma("salvos")))
+    + tira("Seguidores", n(soma("seg")))
+    + tira("Posts no ar", n(soma("posts")))
+    + tira("Canais", nomes.length);
+
+  // série por perfil pros sparklines
+  const chaves = Object.keys(m.dias||{}).sort().slice(-14);
+  const serie = k => chaves.map(d => ((m.dias[d]||{})[k]||{}).views||0);
+  const sete  = k => chaves.slice(-7).reduce((a,d)=>a+(((m.dias[d]||{})[k]||{}).views||0),0);
+
+  document.getElementById("canais").innerHTML = nomes
+    .sort((a,b)=>(P[b].views||0)-(P[a].views||0))
+    .map(k=>{
+      const p=P[k], base=p.views||0;
+      const eng = base ? ((p.likes+p.coments)/base*100) : 0;
+      const marca = PESSOAIS.includes(k) ? '<span class="marca">pessoal</span>' : "";
+      return `<tr><td class="perfil">@${k}${marca}</td>
+        <td>${sparkline(serie(k))} ${curto(sete(k))}</td>
+        <td>${n(p.seg)}</td><td>${n(p.views)}</td><td>${n(p.likes)}</td>
+        <td>${n(p.coments)}</td><td>${n(p.alcance)}</td>
+        <td>${eng.toFixed(1).replace(".",",")}%</td>
+        <td>${p.cota_usada||0}/${p.cota_teto||"—"}</td></tr>`;
+    }).join("");
+
+  const ag = await pega("agenda.json");
+  if(ag){
+    const st = new Set(ag.stories||[]);
+    document.getElementById("calendario").innerHTML = (ag.slots||[]).map(s=>
+      `<div class="slot"><div class="hora">${s.br}</div><div class="tags">${
+        s.perfis.map(p=>`<span class="tag">@${p}${
+          st.has(p)?' <span class="st">+story</span>':""}</span>`).join("")
+      }</div></div>`).join("");
+  }
+
+  const pub = await pega("publicados.json") || [];
+  const dev = await pega("dev_publicados.json") || [];
+  const tudo = [...pub, ...dev].filter(x=>x.permalink && x.quando)
+    .sort((a,b)=> new Date(b.quando)-new Date(a.quando)).slice(0,16);
+  document.getElementById("recentes").innerHTML = tudo.length ? tudo.map(x=>
+    `<li><a href="${x.permalink}" target="_blank" rel="noopener">@${
+      x.perfil || "borges_devv"}</a><span class="sub">${
+      new Date(x.quando).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",
+        hour:"2-digit",minute:"2-digit"})}</span></li>`).join("")
+    : '<li class="vazio">nada ainda</li>';
+})();
+</script>
+</body>
+</html>

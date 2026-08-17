@@ -7,253 +7,258 @@
 <title>Operação</title>
 <style>
 :root{
-  --bg:#080a0e; --card:#11151d; --up:#161b26; --line:#212938; --line2:#2b3547;
-  --tx:#eef1f7; --dim:#8790a5; --or:#ff8a3d; --gr:#3ddc97; --bl:#5aa9ff;
-  --pu:#a78bfa; --rd:#ff6b6b; --yl:#ffd166;
+  --bg:#070910; --panel:#0d1119; --card:#121722; --up:#171d2a;
+  --line:#1e2635; --line2:#2a3548; --tx:#eef1f7; --dim:#8590a6;
+  --ci:#5beaf6; --in:#7884f7; --ro:#be5bf6; --co:#f6665b; --gr:#3ddc97;
+  --or:#ff8a3d; --yl:#ffd166;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);
   font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   -webkit-font-smoothing:antialiased}
-.wrap{max-width:1320px;margin:0 auto;padding:22px 18px 90px}
-a{color:var(--bl);text-decoration:none}
+a{color:var(--ci);text-decoration:none}
 a:hover{text-decoration:underline}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
-/* topo */
-.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  padding-bottom:16px;border-bottom:1px solid var(--line)}
-.logo{font-size:22px;font-weight:750;letter-spacing:-.5px}
-.dot{display:inline-block;width:8px;height:8px;border-radius:99px;
-  background:var(--gr);margin-right:8px;animation:pulsa 2s infinite}
-@keyframes pulsa{0%,100%{opacity:1}50%{opacity:.28}}
-.chip{background:var(--card);border:1px solid var(--line);border-radius:99px;
-  padding:6px 13px;font-size:12.5px;color:var(--dim)}
-.push{margin-left:auto}
+/* ---------- estrutura de aplicação ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.side{background:var(--panel);border-right:1px solid var(--line);
+  padding:20px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.marca{display:flex;align-items:center;gap:10px;padding:0 8px 18px;
+  border-bottom:1px solid var(--line);margin-bottom:14px}
+.pill{width:32px;height:32px;border-radius:9px;flex:0 0 auto;
+  background:linear-gradient(135deg,var(--ci),var(--ro))}
+.marca b{font-size:16px;letter-spacing:-.3px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{display:flex;align-items:center;gap:11px;padding:10px 12px;
+  border-radius:9px;font-size:14px;font-weight:600;color:var(--dim);
+  text-align:left;width:100%}
+.nav button:hover{background:var(--up);color:var(--tx)}
+.nav button.on{background:var(--card);color:var(--tx);
+  box-shadow:inset 2px 0 0 var(--ci)}
+.ic{width:18px;text-align:center;font-size:15px;opacity:.9}
+.viv{margin-top:18px;padding:11px 12px;background:var(--card);
+  border:1px solid var(--line);border-radius:10px;font-size:12px;color:var(--dim)}
+.pt{display:inline-block;width:7px;height:7px;border-radius:99px;
+  background:var(--gr);margin-right:7px;animation:pu 2s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.25}}
 
-/* abas e filtros */
-.tabs{display:flex;gap:5px;flex-wrap:wrap;margin:18px 0 4px}
-.tab{padding:8px 15px;border-radius:9px;font-size:13.5px;font-weight:600;
-  color:var(--dim);border:1px solid transparent}
-.tab:hover{background:var(--up);color:var(--tx)}
-.tab.on{background:var(--card);border-color:var(--line2);color:var(--tx)}
-.filtros{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.main{padding:22px 26px 70px;min-width:0}
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:21px;letter-spacing:-.4px;font-weight:700}
+.push{margin-left:auto}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:99px;
+  padding:5px 12px;font-size:12px;color:var(--dim)}
+
+.filtros{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
 .f{padding:6px 13px;border-radius:8px;font-size:12.5px;font-weight:600;
   background:var(--card);border:1px solid var(--line);color:var(--dim)}
-.f.on{border-color:var(--or);color:var(--or)}
+.f.on{border-color:var(--ci);color:var(--ci)}
 select{background:var(--card);border:1px solid var(--line);color:var(--tx);
   border-radius:8px;padding:6px 11px;font-size:12.5px}
 
-/* blocos */
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:17px 19px}
-.kpis{display:grid;gap:11px;margin-top:6px;
-  grid-template-columns:repeat(auto-fit,minmax(146px,1fr))}
-.lbl{color:var(--dim);font-size:10.5px;text-transform:uppercase;
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;
+  padding:16px 18px}
+.kpis{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.lbl{color:var(--dim);font-size:10px;text-transform:uppercase;
   letter-spacing:1.2px;font-weight:600}
-.big{font-size:27px;font-weight:750;letter-spacing:-1px;margin-top:5px;
+.big{font-size:25px;font-weight:750;letter-spacing:-1px;margin-top:4px;
   font-variant-numeric:tabular-nums}
-.delta{font-size:11.5px;font-weight:600;margin-top:3px}
-.pos{color:var(--gr)} .neg{color:var(--rd)} .neu{color:var(--dim)}
+.delta{font-size:11px;font-weight:600;margin-top:3px}
+.pos{color:var(--gr)}.neg{color:var(--co)}.neu{color:var(--dim)}
+.duo{display:grid;gap:12px;margin-top:12px;
+  grid-template-columns:minmax(300px,1.7fr) minmax(250px,1fr)}
+@media(max-width:1000px){.duo{grid-template-columns:1fr}}
+@media(max-width:760px){.app{grid-template-columns:1fr}
+  .side{position:static;height:auto}.nav{flex-direction:row;flex-wrap:wrap}}
+h3{font-size:10.5px;text-transform:uppercase;letter-spacing:1.4px;
+  color:var(--dim);font-weight:600;margin-bottom:11px}
+svg.ch{width:100%;height:200px;display:block;overflow:visible}
+.ax{fill:var(--dim);font-size:10px}.gl{stroke:#161d2b}
 
-.duo{display:grid;gap:13px;margin-top:13px;
-  grid-template-columns:minmax(300px,1.6fr) minmax(260px,1fr)}
-@media(max-width:900px){.duo{grid-template-columns:1fr}}
-h3{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;
-  color:var(--dim);font-weight:600;margin-bottom:12px}
-svg.chart{width:100%;height:210px;display:block;overflow:visible}
-.ax{fill:var(--dim);font-size:10px}
-.gl{stroke:#1a2130;stroke-width:1}
+.ring{display:flex;align-items:center;gap:15px}
+.pc{font-size:24px;font-weight:750;letter-spacing:-1px}
+.sm{color:var(--dim);font-size:12px;margin-top:4px}
+.mile{display:flex;justify-content:space-between;font-size:12px;padding:6px 0}
+.bar2{height:5px;background:#161d2b;border-radius:99px;overflow:hidden}
+.fill{height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--ci),var(--ro))}
 
-/* meta */
-.ring{display:flex;align-items:center;gap:16px}
-.pc{font-size:26px;font-weight:750;letter-spacing:-1px}
-.sm{color:var(--dim);font-size:12.5px;margin-top:4px}
-.mile{display:flex;justify-content:space-between;font-size:12.5px;
-  padding:7px 0;border-bottom:1px solid #171d29}
-.mile:last-child{border:0}
-.bar2{height:6px;background:#1a2130;border-radius:99px;overflow:hidden;
-  margin-top:6px}
-.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--or),var(--yl))}
-
-/* ranking */
-.rk{display:flex;align-items:center;gap:12px;padding:9px 4px;
-  border-bottom:1px solid #171d29;transition:transform .45s,background .2s;
-  border-radius:8px;cursor:pointer}
-.rk:hover{background:var(--up)}
-.rk:last-child{border:0}
-.pos-n{width:22px;text-align:center;font-weight:750;color:var(--dim);
-  font-variant-numeric:tabular-nums}
-.av{width:34px;height:34px;border-radius:99px;object-fit:cover;
+.rk{display:flex;align-items:center;gap:11px;padding:9px 5px;
+  border-bottom:1px solid #161d2b;border-radius:8px;cursor:pointer}
+.rk:hover{background:var(--up)}.rk:last-child{border:0}
+.pn{width:20px;text-align:center;font-weight:750;color:var(--dim)}
+.av{width:32px;height:32px;border-radius:99px;object-fit:cover;
   border:1px solid var(--line2);background:var(--up);flex:0 0 auto}
-.rk-nome{font-weight:650;font-size:13.5px}
-.rk-sub{color:var(--dim);font-size:11.5px}
-.rk-v{margin-left:auto;text-align:right;font-variant-numeric:tabular-nums}
+.nm{font-weight:650;font-size:13px}
+.su{color:var(--dim);font-size:11px}
+.rv{margin-left:auto;text-align:right;font-variant-numeric:tabular-nums}
 
-/* tabela */
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th{text-align:right;color:var(--dim);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:1px;padding:10px;
-  border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;
-  user-select:none}
+th{text-align:right;color:var(--dim);font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:1px;padding:9px;
+  border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer}
 th:hover{color:var(--tx)}
 th:first-child,td:first-child{text-align:left}
-td{padding:11px 10px;border-bottom:1px solid #171d29;text-align:right;
+td{padding:10px 9px;border-bottom:1px solid #161d2b;text-align:right;
   white-space:nowrap}
 tbody tr:hover{background:var(--up)}
-.thumb{width:38px;height:52px;border-radius:6px;object-fit:cover;
+.tb{width:34px;height:47px;border-radius:5px;object-fit:cover;
   background:var(--up);vertical-align:middle;margin-right:9px}
-.cap{display:inline-block;max-width:340px;overflow:hidden;
-  text-overflow:ellipsis;vertical-align:middle;white-space:nowrap;
-  font-size:13px}
+.cap{display:inline-block;max-width:320px;overflow:hidden;
+  text-overflow:ellipsis;vertical-align:middle;white-space:nowrap;font-size:13px}
 
-/* calendário e fila */
-.slot{display:flex;gap:14px;align-items:center;padding:10px 0;
-  border-bottom:1px solid #171d29}
+.slot{display:flex;gap:13px;align-items:center;padding:9px 0;
+  border-bottom:1px solid #161d2b}
 .slot:last-child{border:0}
-.hora{font-weight:700;color:var(--or);min-width:58px;
-  font-variant-numeric:tabular-nums}
-.slot.now{background:#151d18;border-radius:8px;padding-left:8px}
+.hora{font-weight:700;color:var(--or);min-width:56px}
+.slot.now{background:#101c17;border-radius:8px;padding-left:8px}
 .tag{background:var(--up);border:1px solid var(--line);border-radius:99px;
-  padding:3px 11px;font-size:12.5px;display:inline-flex;gap:5px;
-  align-items:center;margin:2px}
-.st{color:var(--pu);font-size:10.5px}
-.badge{font-size:10px;text-transform:uppercase;letter-spacing:.9px;
+  padding:3px 10px;font-size:12px;margin:2px;display:inline-block}
+.st{color:var(--ro);font-size:10px}
+.bd{font-size:9.5px;text-transform:uppercase;letter-spacing:.9px;
   font-weight:700;padding:2px 8px;border-radius:99px}
-.b-on{background:#12291f;color:var(--gr)}
-.b-off{background:#2a1a1a;color:var(--rd)}
-.b-wait{background:#2a2418;color:var(--yl)}
+.b-on{background:#0f2a1e;color:var(--gr)}
+.b-w{background:#2a2417;color:var(--yl)}
 
-/* modal */
-.veu{position:fixed;inset:0;background:#000a;backdrop-filter:blur(4px);
-  display:none;align-items:center;justify-content:center;padding:22px;z-index:9}
+/* ---------- toasts ---------- */
+.toasts{position:fixed;right:18px;bottom:18px;display:flex;
+  flex-direction:column;gap:9px;z-index:20;max-width:330px}
+.toast{background:var(--card);border:1px solid var(--line2);border-radius:12px;
+  padding:12px 14px;display:flex;gap:11px;align-items:flex-start;
+  box-shadow:0 12px 34px #000a;animation:entra .35s ease}
+@keyframes entra{from{opacity:0;transform:translateX(26px)}to{opacity:1}}
+.toast.saindo{opacity:0;transform:translateX(26px);transition:.3s}
+.tic{width:30px;height:30px;border-radius:9px;flex:0 0 auto;display:grid;
+  place-items:center;font-size:14px}
+.t-like{background:#2a1420;color:var(--co)}
+.t-com{background:#132a24;color:var(--gr)}
+.t-post{background:#2a2114;color:var(--or)}
+.toast b{font-size:13px}.toast div{min-width:0}
+.toast p{font-size:12px;color:var(--dim);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- modal ---------- */
+.veu{position:fixed;inset:0;background:#000b;backdrop-filter:blur(5px);
+  display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
 .veu.on{display:flex}
-.modal{background:var(--card);border:1px solid var(--line2);border-radius:16px;
-  max-width:660px;width:100%;max-height:86vh;overflow:auto;padding:24px}
-.mh{display:flex;gap:14px;align-items:center;margin-bottom:16px}
-.mh img{width:62px;height:62px;border-radius:99px;object-fit:cover;
-  border:1px solid var(--line2)}
-.fechar{margin-left:auto;color:var(--dim);font-size:22px;line-height:1}
-.mgrid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
-  margin:14px 0}
-.mcell{background:var(--up);border-radius:10px;padding:11px 13px}
-.mcell .lbl{font-size:9.5px}
-.mcell .v{font-size:18px;font-weight:700;margin-top:3px;
-  font-variant-numeric:tabular-nums}
-.pane{display:none} .pane.on{display:block}
-.vazio{color:var(--dim);padding:24px 0;font-size:13.5px;text-align:center}
+.modal{background:var(--card);border:1px solid var(--line2);border-radius:15px;
+  max-width:640px;width:100%;max-height:86vh;overflow:auto;padding:22px}
+.mh{display:flex;gap:13px;align-items:center;margin-bottom:14px}
+.mh img{width:58px;height:58px;border-radius:99px;object-fit:cover}
+.x{margin-left:auto;color:var(--dim);font-size:21px}
+.mg{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));
+  margin:13px 0}
+.mc{background:var(--up);border-radius:9px;padding:10px 12px}
+.mc .v{font-size:17px;font-weight:700;margin-top:2px}
+.cm{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #161d2b}
+.cm:last-child{border:0}
+.cmav{width:28px;height:28px;border-radius:99px;background:var(--up);
+  display:grid;place-items:center;font-size:12px;flex:0 0 auto;color:var(--dim)}
+.pane{display:none}.pane.on{display:block}
+.vaz{color:var(--dim);padding:22px 0;font-size:13px;text-align:center}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
+  <aside class="side">
+    <div class="marca"><div class="pill"></div><b>Operação</b></div>
+    <nav class="nav">
+      <button class="on" data-p="geral"><span class="ic">◧</span>Visão geral</button>
+      <button data-p="canais"><span class="ic">◉</span>Canais</button>
+      <button data-p="posts"><span class="ic">▤</span>Posts</button>
+      <button data-p="coments"><span class="ic">◌</span>Comentários</button>
+      <button data-p="agenda"><span class="ic">◷</span>Calendário</button>
+      <button data-p="config"><span class="ic">⚙</span>Configuração</button>
+    </nav>
+    <div class="viv"><span class="pt"></span><span id="viva">conectado</span>
+      <div style="margin-top:6px" id="ultPulso"></div></div>
+  </aside>
 
-  <div class="bar">
-    <div class="logo">Operação</div>
-    <div class="chip"><span class="dot"></span><span id="viva">ao vivo</span></div>
-    <div class="chip push" id="quando">carregando…</div>
-    <div class="chip" id="relogio"></div>
-  </div>
+  <main class="main">
+    <div class="top">
+      <h1 id="titulo">Visão geral</h1>
+      <div class="chip push" id="quando">carregando…</div>
+      <div class="chip" id="relogio"></div>
+    </div>
 
-  <div class="tabs">
-    <button class="tab on" data-p="geral">Visão geral</button>
-    <button class="tab" data-p="canais">Canais</button>
-    <button class="tab" data-p="posts">Posts</button>
-    <button class="tab" data-p="agenda">Calendário &amp; fila</button>
-    <button class="tab" data-p="config">Configuração</button>
-  </div>
+    <div class="filtros">
+      <button class="f" data-d="0.042">1 hora</button>
+      <button class="f on" data-d="1">hoje</button>
+      <button class="f" data-d="7">7 dias</button>
+      <button class="f" data-d="30">30 dias</button>
+      <button class="f" data-d="90">90 dias</button>
+      <button class="f" data-d="0">tudo</button>
+      <select id="selPerfil"><option value="">todos os canais</option></select>
+      <span class="sm" id="resumo"></span>
+    </div>
 
-  <div class="filtros">
-    <button class="f on" data-d="7">7 dias</button>
-    <button class="f" data-d="30">30 dias</button>
-    <button class="f" data-d="90">90 dias</button>
-    <button class="f" data-d="0">tudo</button>
-    <select id="selPerfil"><option value="">todos os canais</option></select>
-    <span class="sm" id="resumoFiltro"></span>
-  </div>
-
-  <!-- GERAL -->
-  <div class="pane on" id="p-geral">
-    <div class="kpis" id="kpis"></div>
-    <div class="duo">
-      <div class="card">
-        <h3 id="tituloGraf">Views por dia</h3>
-        <svg class="chart" id="graf" viewBox="0 0 760 210" preserveAspectRatio="none"></svg>
-        <div class="sm" id="legGraf"></div>
+    <div class="pane on" id="p-geral">
+      <div class="kpis" id="kpis"></div>
+      <div class="duo">
+        <div class="card"><h3>Views por dia</h3>
+          <svg class="ch" id="graf" viewBox="0 0 760 200" preserveAspectRatio="none"></svg>
+          <div class="sm" id="legGraf"></div></div>
+        <div class="card"><h3>Meta &amp; monetização</h3>
+          <div class="ring">
+            <svg width="98" height="98" viewBox="0 0 98 98">
+              <circle cx="49" cy="49" r="42" fill="none" stroke="#161d2b" stroke-width="10"/>
+              <circle id="arco" cx="49" cy="49" r="42" fill="none" stroke="url(#g)"
+                stroke-width="10" stroke-linecap="round" transform="rotate(-90 49 49)"
+                stroke-dasharray="0 999" style="transition:stroke-dasharray .8s"/>
+              <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5beaf6"/><stop offset="1" stop-color="#be5bf6"/>
+              </linearGradient></defs></svg>
+            <div><div class="pc" id="pct">—</div><div class="sm" id="faltam"></div></div>
+          </div>
+          <div class="sm" id="prev" style="margin:11px 0 12px"></div>
+          <div id="marcos"></div></div>
       </div>
-      <div class="card">
-        <h3>Meta &amp; monetização</h3>
-        <div class="ring">
-          <svg width="104" height="104" viewBox="0 0 104 104">
-            <circle cx="52" cy="52" r="45" fill="none" stroke="#1a2130" stroke-width="11"/>
-            <circle id="arco" cx="52" cy="52" r="45" fill="none" stroke="url(#gd)"
-              stroke-width="11" stroke-linecap="round" transform="rotate(-90 52 52)"
-              stroke-dasharray="0 999" style="transition:stroke-dasharray .8s"/>
-            <defs><linearGradient id="gd" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ffd166"/>
-            </linearGradient></defs>
-          </svg>
-          <div><div class="pc" id="pct">—</div><div class="sm" id="faltam"></div></div>
-        </div>
-        <div class="sm" id="previsao" style="margin:12px 0 14px"></div>
-        <div id="marcos"></div>
+      <div class="card" style="margin-top:12px"><h3>Ranking ao vivo</h3>
+        <div id="ranking"></div></div>
+    </div>
+
+    <div class="pane" id="p-canais">
+      <div class="card" style="padding:3px 8px">
+        <table><thead><tr id="thC"></tr></thead><tbody id="tbC"></tbody></table></div>
+      <div class="sm" style="margin-top:9px">Clique num canal pra ver bio, foto e top posts.</div>
+    </div>
+
+    <div class="pane" id="p-posts">
+      <div class="card" style="padding:3px 8px">
+        <table><thead><tr id="thP"></tr></thead><tbody id="tbP"></tbody></table></div>
+    </div>
+
+    <div class="pane" id="p-coments">
+      <div class="card"><h3>Comentários recentes</h3><div id="coments"></div></div>
+    </div>
+
+    <div class="pane" id="p-agenda">
+      <div class="duo">
+        <div class="card"><h3>Calendário do dia</h3><div id="cal"></div></div>
+        <div class="card"><h3>Fila &amp; status</h3><div id="fila"></div></div>
+      </div>
+      <div class="card" style="margin-top:12px"><h3>Últimos publicados</h3>
+        <div id="recentes"></div></div>
+    </div>
+
+    <div class="pane" id="p-config">
+      <div class="duo">
+        <div class="card"><h3>Automações</h3><div id="autos"></div></div>
+        <div class="card"><h3>Cota de publicação (24h)</h3><div id="cotas"></div></div>
       </div>
     </div>
-    <div class="card" style="margin-top:13px">
-      <h3>Ranking ao vivo</h3>
-      <div id="ranking"></div>
-    </div>
-  </div>
-
-  <!-- CANAIS -->
-  <div class="pane" id="p-canais">
-    <div class="card" style="padding:4px 8px">
-      <table>
-        <thead><tr id="thCanais"></tr></thead>
-        <tbody id="tbCanais"></tbody>
-      </table>
-    </div>
-    <div class="sm" style="margin-top:10px">Clique num canal pra ver bio, foto e detalhes.</div>
-  </div>
-
-  <!-- POSTS -->
-  <div class="pane" id="p-posts">
-    <div class="card" style="padding:4px 8px">
-      <table>
-        <thead><tr id="thPosts"></tr></thead>
-        <tbody id="tbPosts"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- AGENDA -->
-  <div class="pane" id="p-agenda">
-    <div class="duo">
-      <div class="card"><h3>Calendário do dia</h3><div id="cal"></div></div>
-      <div class="card"><h3>Fila &amp; status</h3><div id="fila"></div></div>
-    </div>
-    <div class="card" style="margin-top:13px">
-      <h3>Últimos publicados pelo sistema</h3>
-      <div id="recentes"></div>
-    </div>
-  </div>
-
-  <!-- CONFIG -->
-  <div class="pane" id="p-config">
-    <div class="duo">
-      <div class="card"><h3>Automações</h3><div id="autos"></div></div>
-      <div class="card"><h3>Cota de publicação (24h)</h3><div id="cotas"></div></div>
-    </div>
-  </div>
-
+  </main>
 </div>
 
+<div class="toasts" id="toasts"></div>
 <div class="veu" id="veu"><div class="modal" id="modal"></div></div>
 
 <script>
 const RAIZ="https://ainpiqtxjedstmfnhhzn.supabase.co/storage/v1/object/public/midias/estado/";
 const PESSOAIS=["leoo_borgees"], META=1e6, RECARGA=60000;
-let M=null, PUB=[], DEV=[], AG=null, DIAS=7, PERFIL="", ordC="views", ordP="v", desc=true;
+let M=null,PUB=[],DEV=[],AG=null,PULSO=[],DIAS=1,PERFIL="",ordC="views",ordP="v",desc=true;
+let visto=null;   // última leitura de pulso já anunciada
 
 const n=v=>(v||0).toLocaleString("pt-BR");
 const curto=v=>v>=1e6?(v/1e6).toFixed(2).replace(".",",")+" mi"
@@ -263,32 +268,52 @@ const dh=s=>s?new Date(s).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",
 const esc=s=>(s||"").replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
 const pega=async a=>{try{const r=await fetch(RAIZ+a+"?t="+Date.now());return r.ok?r.json():null}catch(e){return null}};
 
-/* --- animar número subindo: dá a sensação de tempo real --- */
-function sobe(el,alvo){
-  const de=+(el.dataset.v||0);
-  if(de===alvo){el.textContent=curto(alvo);return}
-  el.dataset.v=alvo;
-  const t0=performance.now(), dur=650;
-  const passo=t=>{
-    const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
-    el.textContent=curto(Math.round(de+(alvo-de)*e));
-    if(k<1) requestAnimationFrame(passo);
-  };
-  requestAnimationFrame(passo);
+/* ---------- toasts ---------- */
+function toast(tipo,titulo,texto,url){
+  const box=document.getElementById("toasts");
+  const el=document.createElement("div");
+  el.className="toast";
+  const ic={like:["t-like","♥"],com:["t-com","✎"],post:["t-post","▲"]}[tipo]||["t-post","•"];
+  el.innerHTML=`<div class="tic ${ic[0]}">${ic[1]}</div>
+    <div><b>${esc(titulo)}</b><p>${esc(texto)}</p></div>`;
+  if(url) el.onclick=()=>window.open(url,"_blank");
+  el.style.cursor=url?"pointer":"default";
+  box.appendChild(el);
+  setTimeout(()=>{el.classList.add("saindo");setTimeout(()=>el.remove(),320)},7000);
+  while(box.children.length>4) box.firstChild.remove();
 }
 
-/* --- série de dias respeitando filtro de data e de perfil --- */
+/* compara a leitura nova com a anterior e avisa o que mudou */
+function avisa(){
+  if(PULSO.length<2) return;
+  const atual=PULSO.at(-1), ant=PULSO.at(-2);
+  if(visto===atual.quando) return;
+  const primeira=visto===null;
+  visto=atual.quando;
+  if(primeira) return;      // no primeiro carregamento não estoura tudo de uma vez
+  for(const perfil in atual.posts||{}){
+    const a=atual.posts[perfil], b=(ant.posts||{})[perfil]||{};
+    for(const id in a){
+      const novo=a[id], velho=b[id];
+      if(!velho){ toast("post","@"+perfil,"post novo no ar",novo.u); continue; }
+      const dl=novo.l-velho.l, dc=novo.c-velho.c;
+      if(dc>0) toast("com","@"+perfil,`${dc} comentário${dc>1?"s":""} novo${dc>1?"s":""}`,novo.u);
+      else if(dl>0) toast("like","@"+perfil,`+${dl} like${dl>1?"s":""}`,novo.u);
+    }
+  }
+}
+
+/* ---------- séries ---------- */
 function serie(){
   const todas=Object.keys(M.dias||{}).sort();
-  const ks=DIAS?todas.slice(-DIAS):todas;
+  const ks=DIAS?todas.slice(-Math.max(1,Math.ceil(DIAS))):todas;
   return ks.map(k=>{
-    const d=M.dias[k]||{};
-    const alvo=PERFIL?{[PERFIL]:d[PERFIL]}:d;
+    const d=M.dias[k]||{}, alvo=PERFIL?{[PERFIL]:d[PERFIL]}:d;
     let v=0,l=0,c=0,p=0;
     for(const nome in alvo){
       const x=alvo[nome]; if(!x||typeof x!=="object") continue;
       if(!PERFIL&&PESSOAIS.includes(nome)) continue;
-      v+=x.views||0; l+=x.likes||0; c+=x.coments||0; p+=x.posts||0;
+      v+=x.views||0;l+=x.likes||0;c+=x.coments||0;p+=x.posts||0;
     }
     return {k,v,l,c,p};
   });
@@ -297,274 +322,268 @@ function serie(){
 function grafico(S){
   const el=document.getElementById("graf");
   if(!S.length){el.innerHTML="";return}
-  const W=760,H=210,pb=24,mx=Math.max(...S.map(d=>d.v),1),w=W/S.length;
+  const W=760,H=200,pb=22,mx=Math.max(...S.map(d=>d.v),1),w=W/S.length;
   let g="";
   for(let i=0;i<=3;i++){const y=8+(H-pb-8)*i/3;
     g+=`<line class="gl" x1="0" y1="${y}" x2="${W}" y2="${y}"/>
-        <text class="ax" x="2" y="${y-3}">${curto(Math.round(mx*(1-i/3)))}</text>`;}
+        <text class="ax" x="2" y="${y-3}">${curto(Math.round(mx*(1-i/3)))}</text>`}
   S.forEach((d,i)=>{
     const h=Math.max(2,d.v/mx*(H-pb-14));
-    const cor=i===S.length-1?"var(--or)":"#2f3d57";
     g+=`<rect x="${(i*w+1.5).toFixed(1)}" y="${(H-pb-h).toFixed(1)}"
-      width="${Math.max(1,w-3).toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${cor}">
-      <title>${d.k} — ${n(d.v)} views, ${n(d.l)} likes, ${d.p} post(s)</title></rect>`;
-  });
-  const pts=S.map((d,i)=>`${(i*w+w/2).toFixed(1)},${(H-pb-Math.max(2,d.l/Math.max(...S.map(x=>x.l),1)*(H-pb-14))).toFixed(1)}`).join(" ");
-  g+=`<polyline points="${pts}" fill="none" stroke="var(--bl)" stroke-width="1.8" opacity=".85"/>`;
-  g+=`<text class="ax" x="0" y="${H-6}">${dia(S[0].k)}</text>
-      <text class="ax" x="${W}" y="${H-6}" text-anchor="end">${dia(S.at(-1).k)}</text>`;
+      width="${Math.max(1,w-3).toFixed(1)}" height="${h.toFixed(1)}" rx="2"
+      fill="${i===S.length-1?"var(--ci)":"#27344d"}">
+      <title>${d.k} — ${n(d.v)} views, ${n(d.l)} likes, ${d.p} post(s)</title></rect>`});
+  g+=`<text class="ax" x="0" y="${H-5}">${dia(S[0].k)}</text>
+      <text class="ax" x="${W}" y="${H-5}" text-anchor="end">${dia(S.at(-1).k)}</text>`;
   el.innerHTML=g;
   const tot=S.reduce((a,d)=>a+d.v,0);
   document.getElementById("legGraf").textContent=
-    `${n(tot)} views no período · média ${curto(Math.round(tot/S.length))}/dia · linha azul = likes`;
+    `${n(tot)} views no período · média ${curto(Math.round(tot/S.length))}/dia`;
 }
 
+/* KPI: pra 1 hora usa o pulso; pro resto usa a série diária */
 function kpis(S){
-  const P=M.perfis||{}, nomes=Object.keys(P);
-  const alvo=PERFIL?[PERFIL]:nomes;
+  const P=M.perfis||{}, alvo=PERFIL?[PERFIL]:Object.keys(P).filter(k=>!PESSOAIS.includes(k));
   const sm=c=>alvo.reduce((a,k)=>a+((P[k]||{})[c]||0),0);
-  const meio=Math.floor(S.length/2);
-  const a=S.slice(0,meio).reduce((x,d)=>x+d.v,0), b=S.slice(meio).reduce((x,d)=>x+d.v,0);
-  const var_=a?((b-a)/a*100):0;
-  const eng=sm("views")?((sm("likes")+sm("coments"))/sm("views")*100):0;
-  const cel=(l,v,d)=>`<div class="card"><div class="lbl">${l}</div>
-    <div class="big" data-k="${l}">${v}</div>${d||""}</div>`;
+  let v,l,c,rot="";
+  if(DIAS<1&&PULSO.length>=2){
+    const a=PULSO.at(-1).totais,b=PULSO.at(-2).totais;
+    v=a.views-b.views;l=a.likes-b.likes;c=a.coments-b.coments;
+    rot="movimento desde a leitura anterior";
+  }else if(DIAS===1){
+    const h=S.at(-1)||{v:0,l:0,c:0};v=h.v;l=h.l;c=h.c;rot="hoje";
+  }else{
+    v=S.reduce((a,d)=>a+d.v,0);l=S.reduce((a,d)=>a+d.l,0);c=S.reduce((a,d)=>a+d.c,0);
+  }
+  const eng=v?((l+c)/v*100):0;
+  const cel=(a,b,d)=>`<div class="card"><div class="lbl">${a}</div>
+    <div class="big">${b}</div>${d?`<div class="delta neu">${d}</div>`:""}</div>`;
   document.getElementById("kpis").innerHTML=
-     cel("Views",curto(sm("views")),
-       `<div class="delta ${var_>0?"pos":var_<0?"neg":"neu"}">${var_>0?"▲":var_<0?"▼":"—"} ${Math.abs(var_).toFixed(0)}% no período</div>`)
-    +cel("Likes",curto(sm("likes")))
-    +cel("Comentários",n(sm("coments")))
-    +cel("Alcance",curto(sm("alcance")))
-    +cel("Salvos",n(sm("salvos")))
-    +cel("Compart.",n(sm("compart")))
-    +cel("Seguidores",n(sm("seg")))
-    +cel("Engajamento",eng.toFixed(1).replace(".",",")+"%");
-  document.getElementById("resumoFiltro").textContent=
-    (PERFIL?"@"+PERFIL:`${alvo.length} canais`)+" · "+(DIAS?DIAS+" dias":"histórico completo");
+     cel("Views",curto(v),rot)+cel("Likes",curto(l))+cel("Comentários",n(c))
+    +cel("Engajamento",eng.toFixed(1).replace(".",",")+"%")
+    +cel("Seguidores",n(sm("seg")))+cel("Views totais",curto(sm("views")))
+    +cel("Alcance total",curto(sm("alcance")))+cel("Posts",n(sm("posts")));
+  const nomes={0.042:"última hora",1:"hoje",0:"histórico completo"};
+  document.getElementById("resumo").textContent=
+    (PERFIL?"@"+PERFIL:`${alvo.length} canais`)+" · "+(nomes[DIAS]||DIAS+" dias");
 }
 
 function meta(S){
   const P=M.perfis||{};
   const v=Object.keys(P).filter(k=>!PESSOAIS.includes(k)).reduce((a,k)=>a+(P[k].views||0),0);
-  const pct=Math.min(100,v/META*100), C=2*Math.PI*45;
+  const pct=Math.min(100,v/META*100),C=2*Math.PI*42;
   document.getElementById("arco").setAttribute("stroke-dasharray",`${(C*pct/100).toFixed(1)} ${C}`);
   document.getElementById("pct").textContent=pct.toFixed(1).replace(".",",")+"%";
   document.getElementById("faltam").textContent="faltam "+curto(Math.max(0,META-v));
   const md=S.length?S.reduce((a,d)=>a+d.v,0)/S.length:0;
-  document.getElementById("previsao").textContent=md>0
-    ?`No ritmo do período, 1 milhão em ~${Math.ceil((META-v)/md)} dias.`
-    :"Sem dados suficientes pra projetar.";
+  document.getElementById("prev").textContent=md>0
+    ?`No ritmo do período, 1 milhão em ~${Math.ceil((META-v)/md)} dias.`:"";
   const seg=Object.keys(P).filter(k=>!PESSOAIS.includes(k)).reduce((a,k)=>a+(P[k].seg||0),0);
-  const marcos=[["1.000 seguidores",seg,1000],["10.000 seguidores",seg,10000],
-                ["100 mil views",v,1e5],["500 mil views",v,5e5]];
-  document.getElementById("marcos").innerHTML=marcos.map(([l,at,al])=>{
-    const p=Math.min(100,at/al*100);
-    return `<div class="mile"><span>${l}</span>
-      <span class="${at>=al?"pos":"neu"}">${at>=al?"✓ batido":curto(al-at)+" pra ir"}</span></div>
-      <div class="bar2"><div class="fill" style="width:${p}%"></div></div>`;
-  }).join("");
+  document.getElementById("marcos").innerHTML=
+    [["1.000 seguidores",seg,1000],["10.000 seguidores",seg,10000],
+     ["100 mil views",v,1e5],["500 mil views",v,5e5]].map(([l,at,al])=>
+    `<div class="mile"><span>${l}</span><span class="${at>=al?"pos":"neu"}">${
+      at>=al?"✓":curto(al-at)+" pra ir"}</span></div>
+     <div class="bar2"><div class="fill" style="width:${Math.min(100,at/al*100)}%"></div></div>`).join("");
 }
 
 function ranking(){
   const P=M.perfis||{};
-  const ks=Object.keys(P).filter(k=>!PESSOAIS.includes(k))
-    .sort((a,b)=>(P[b].views||0)-(P[a].views||0));
-  document.getElementById("ranking").innerHTML=ks.map((k,i)=>{
-    const p=P[k];
-    return `<div class="rk" data-perfil="${k}">
-      <div class="pos-n">${i+1}</div>
-      <img class="av" src="${esc(p.foto)}" alt="" loading="lazy"
-           onerror="this.style.visibility='hidden'">
-      <div><div class="rk-nome">@${k}</div>
-           <div class="rk-sub">${n(p.seg)} seg · ${p.posts} posts</div></div>
-      <div class="rk-v"><div style="font-weight:700">${curto(p.views)}</div>
-        <div class="rk-sub">${curto(p.likes)} likes</div></div></div>`;
-  }).join("");
+  document.getElementById("ranking").innerHTML=Object.keys(P)
+    .filter(k=>!PESSOAIS.includes(k)).sort((a,b)=>(P[b].views||0)-(P[a].views||0))
+    .map((k,i)=>{const p=P[k];
+      return `<div class="rk" data-perfil="${k}"><div class="pn">${i+1}</div>
+        <img class="av" src="${esc(p.foto)}" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="nm">@${k}</div><div class="su">${n(p.seg)} seg · ${p.posts} posts</div></div>
+        <div class="rv"><div style="font-weight:700">${curto(p.views)}</div>
+          <div class="su">${curto(p.likes)} likes</div></div></div>`}).join("");
 }
 
-const COLS=[["perfil","Perfil"],["seg","Seg."],["views","Views"],["likes","Likes"],
-  ["coments","Coment."],["alcance","Alcance"],["salvos","Salvos"],
-  ["compart","Compart."],["eng","Eng."],["posts","Posts"]];
+const CC=[["perfil","Perfil"],["seg","Seg."],["views","Views"],["likes","Likes"],
+  ["coments","Coment."],["alcance","Alcance"],["eng","Eng."],["posts","Posts"]];
 function canais(){
   const P=M.perfis||{};
-  document.getElementById("thCanais").innerHTML=
-    COLS.map(([k,l])=>`<th data-o="${k}">${l}${ordC===k?(desc?" ▾":" ▴"):""}</th>`).join("");
+  document.getElementById("thC").innerHTML=CC.map(([k,l])=>
+    `<th data-o="${k}">${l}${ordC===k?(desc?" ▾":" ▴"):""}</th>`).join("");
   const val=(p,k)=>k==="eng"?(p.views?(p.likes+p.coments)/p.views*100:0):(p[k]||0);
-  const ks=Object.keys(P).sort((a,b)=>{
-    if(ordC==="perfil") return desc?b.localeCompare(a):a.localeCompare(b);
-    return (desc?1:-1)*(val(P[b],ordC)-val(P[a],ordC));
-  });
-  document.getElementById("tbCanais").innerHTML=ks.map(k=>{
-    const p=P[k], eng=p.views?((p.likes+p.coments)/p.views*100):0;
-    const mk=PESSOAIS.includes(k)?' <span class="badge b-wait">pessoal</span>':"";
+  document.getElementById("tbC").innerHTML=Object.keys(P).sort((a,b)=>
+    ordC==="perfil"?(desc?b.localeCompare(a):a.localeCompare(b))
+    :(desc?1:-1)*(val(P[b],ordC)-val(P[a],ordC))).map(k=>{
+    const p=P[k],eng=p.views?((p.likes+p.coments)/p.views*100):0;
     return `<tr data-perfil="${k}" style="cursor:pointer">
-      <td><img class="av" style="width:26px;height:26px;vertical-align:middle;margin-right:8px"
-        src="${esc(p.foto)}" onerror="this.style.visibility='hidden'"><b>@${k}</b>${mk}</td>
+      <td><img class="av" style="width:24px;height:24px;vertical-align:middle;margin-right:7px"
+        src="${esc(p.foto)}" onerror="this.style.visibility='hidden'"><b>@${k}</b>${
+        PESSOAIS.includes(k)?' <span class="bd b-w">pessoal</span>':""}</td>
       <td>${n(p.seg)}</td><td>${n(p.views)}</td><td>${n(p.likes)}</td>
-      <td>${n(p.coments)}</td><td>${n(p.alcance)}</td><td>${n(p.salvos)}</td>
-      <td>${n(p.compart)}</td><td>${eng.toFixed(1).replace(".",",")}%</td>
-      <td>${p.posts}</td></tr>`;
-  }).join("");
+      <td>${n(p.coments)}</td><td>${n(p.alcance)}</td>
+      <td>${eng.toFixed(1).replace(".",",")}%</td><td>${p.posts}</td></tr>`}).join("");
 }
 
-const PC=[["q","Quando"],["perfil","Canal"],["v","Views"],["l","Likes"],
-  ["c","Coment."],["r","Alcance"],["s","Salvos"],["eng","Eng."]];
+const PP=[["q","Quando"],["perfil","Canal"],["v","Views"],["l","Likes"],
+  ["c","Coment."],["r","Alcance"],["eng","Eng."]];
 function posts(){
-  const P=M.perfis||{};
-  let todos=[];
+  const P=M.perfis||{};let t=[];
   for(const k in P){
-    if(PERFIL&&k!==PERFIL) continue;
-    if(!PERFIL&&PESSOAIS.includes(k)) continue;
-    (P[k].posts_lista||[]).forEach(x=>todos.push({...x,perfil:k}));
+    if(PERFIL&&k!==PERFIL)continue;
+    if(!PERFIL&&PESSOAIS.includes(k))continue;
+    (P[k].posts_lista||[]).forEach(x=>t.push({...x,perfil:k}));
   }
-  if(DIAS){const lim=Date.now()-DIAS*864e5; todos=todos.filter(x=>new Date(x.q)>=lim);}
+  if(DIAS){const lim=Date.now()-DIAS*864e5;t=t.filter(x=>new Date(x.q)>=lim)}
   const val=(x,k)=>k==="eng"?(x.v?(x.l+x.c)/x.v*100:0):k==="q"?new Date(x.q):k==="perfil"?x.perfil:(x[k]||0);
-  todos.sort((a,b)=>{
-    const A=val(a,ordP),B=val(b,ordP);
-    if(typeof A==="string") return desc?B.localeCompare(A):A.localeCompare(B);
-    return desc?B-A:A-B;
-  });
-  document.getElementById("thPosts").innerHTML=
-    PC.map(([k,l])=>`<th data-op="${k}">${l}${ordP===k?(desc?" ▾":" ▴"):""}</th>`).join("");
-  document.getElementById("tbPosts").innerHTML=todos.length?todos.slice(0,120).map(x=>{
+  t.sort((a,b)=>{const A=val(a,ordP),B=val(b,ordP);
+    return typeof A==="string"?(desc?B.localeCompare(A):A.localeCompare(B)):(desc?B-A:A-B)});
+  document.getElementById("thP").innerHTML=PP.map(([k,l])=>
+    `<th data-op="${k}">${l}${ordP===k?(desc?" ▾":" ▴"):""}</th>`).join("");
+  document.getElementById("tbP").innerHTML=t.length?t.slice(0,120).map(x=>{
     const eng=x.v?((x.l+x.c)/x.v*100):0;
-    return `<tr><td><img class="thumb" src="${esc(x.t)}" loading="lazy"
+    return `<tr><td><img class="tb" src="${esc(x.t)}" loading="lazy"
         onerror="this.style.visibility='hidden'">
       <a class="cap" href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.leg)||"(sem legenda)"}</a>
-      <div class="rk-sub" style="margin-left:47px">${dh(x.q)}</div></td>
-      <td>@${x.perfil}</td><td><b>${n(x.v)}</b></td><td>${n(x.l)}</td><td>${n(x.c)}</td>
-      <td>${n(x.r)}</td><td>${n(x.s)}</td>
-      <td>${eng.toFixed(1).replace(".",",")}%</td></tr>`;
-  }).join(""):'<tr><td colspan="8" class="vazio">nada no filtro escolhido</td></tr>';
+      <div class="su" style="margin-left:43px">${dh(x.q)}</div></td>
+      <td>@${x.perfil}</td><td><b>${n(x.v)}</b></td><td>${n(x.l)}</td>
+      <td>${n(x.c)}</td><td>${n(x.r)}</td>
+      <td>${eng.toFixed(1).replace(".",",")}%</td></tr>`}).join("")
+    :'<tr><td colspan="7" class="vaz">nada no filtro escolhido</td></tr>';
+}
+
+function coments(){
+  const el=document.getElementById("coments");
+  if(!PULSO.length){el.innerHTML='<div class="vaz">o pulso ainda não coletou</div>';return}
+  const ult=PULSO.at(-1);let todos=[];
+  for(const perfil in ult.posts||{}){
+    if(PERFIL&&perfil!==PERFIL)continue;
+    for(const id in ult.posts[perfil]){
+      const p=ult.posts[perfil][id];
+      (p.cms||[]).forEach(c=>todos.push({...c,perfil,u:p.u}));
+    }
+  }
+  todos.sort((a,b)=>new Date(b.q)-new Date(a.q));
+  el.innerHTML=todos.length?todos.slice(0,60).map(c=>
+    `<div class="cm"><div class="cmav">${esc((c.a||"?")[0].toUpperCase())}</div>
+      <div style="min-width:0"><b style="font-size:13px">@${esc(c.a)}</b>
+        <span class="su"> · @${esc(c.perfil)} · ${dh(c.q)}</span>
+        <div style="font-size:13px">${esc(c.t)}</div>
+        <a class="su" href="${esc(c.u)}" target="_blank" rel="noopener">abrir post</a></div></div>`
+    ).join(""):'<div class="vaz">nenhum comentário nos posts recentes</div>';
 }
 
 function agenda(){
   const st=new Set((AG&&AG.stories)||[]);
-  const agora=new Date(), hm=agora.getHours()*60+agora.getMinutes();
+  const ag=new Date(),hm=ag.getHours()*60+ag.getMinutes();
   document.getElementById("cal").innerHTML=((AG&&AG.slots)||[]).map(s=>{
-    const [h,m]=s.br.split(":").map(Number), t=h*60+m;
-    const perto=hm>=t&&hm<t+100;
-    return `<div class="slot${perto?" now":""}"><div class="hora">${s.br}</div>
-      <div>${s.perfis.map(p=>`<span class="tag">@${p}${st.has(p)?' <span class="st">+story</span>':""}</span>`).join("")}</div></div>`;
-  }).join("")||'<div class="vazio">sem agenda</div>';
-
-  const porPerfil={};
-  PUB.forEach(x=>{porPerfil[x.perfil]=(porPerfil[x.perfil]||0)+1});
+    const [h,m]=s.br.split(":").map(Number),t=h*60+m;
+    return `<div class="slot${hm>=t&&hm<t+100?" now":""}"><div class="hora">${s.br}</div>
+      <div>${s.perfis.map(p=>`<span class="tag">@${p}${
+        st.has(p)?' <span class="st">+story</span>':""}</span>`).join("")}</div></div>`
+  }).join("")||'<div class="vaz">sem agenda</div>';
   const hoje=new Date().toISOString().slice(0,10);
-  const hojeN=PUB.filter(x=>(x.quando||"").slice(0,10)===hoje).length
-             +DEV.filter(x=>(x.quando||"").slice(0,10)===hoje).length;
-  document.getElementById("fila").innerHTML=`
-    <div class="mgrid">
-      <div class="mcell"><div class="lbl">Hoje</div><div class="v">${hojeN}</div></div>
-      <div class="mcell"><div class="lbl">Reaproveitados</div><div class="v">${PUB.length}</div></div>
-      <div class="mcell"><div class="lbl">Dev no ar</div><div class="v">${DEV.filter(x=>x.permalink).length}</div></div>
-      <div class="mcell"><div class="lbl">Por dia</div><div class="v">${((AG&&AG.slots)||[]).reduce((a,s)=>a+s.perfis.length,0)}</div></div>
-    </div>
-    <div class="sm">O canal dev puxa sozinho do AutoReels — gere lá e ele entra na fila.</div>`;
-
-  const tudo=[...PUB.map(x=>({...x})),...DEV.map(x=>({...x,perfil:x.perfil||"borges_devv"}))]
-    .filter(x=>x.permalink&&x.quando)
-    .sort((a,b)=>new Date(b.quando)-new Date(a.quando)).slice(0,20);
-  document.getElementById("recentes").innerHTML=tudo.length?tudo.map(x=>
-    `<div class="slot"><span class="badge b-on">no ar</span>
+  const hj=[...PUB,...DEV].filter(x=>(x.quando||"").slice(0,10)===hoje).length;
+  document.getElementById("fila").innerHTML=`<div class="mg">
+    <div class="mc"><div class="lbl">Hoje</div><div class="v">${hj}</div></div>
+    <div class="mc"><div class="lbl">Reaproveitados</div><div class="v">${PUB.length}</div></div>
+    <div class="mc"><div class="lbl">Dev no ar</div><div class="v">${DEV.filter(x=>x.permalink).length}</div></div>
+    <div class="mc"><div class="lbl">Por dia</div><div class="v">${
+      ((AG&&AG.slots)||[]).reduce((a,s)=>a+s.perfis.length,0)}</div></div></div>
+    <div class="sm">O canal dev puxa sozinho do AutoReels.</div>`;
+  const t=[...PUB,...DEV.map(x=>({...x,perfil:x.perfil||"borges_devv"}))]
+    .filter(x=>x.permalink&&x.quando).sort((a,b)=>new Date(b.quando)-new Date(a.quando)).slice(0,20);
+  document.getElementById("recentes").innerHTML=t.length?t.map(x=>
+    `<div class="slot"><span class="bd b-on">no ar</span>
       <a href="${esc(x.permalink)}" target="_blank" rel="noopener">@${esc(x.perfil)}</a>
-      <span class="rk-sub" style="margin-left:auto">${dh(x.quando)}</span></div>`).join("")
-    :'<div class="vazio">nada ainda</div>';
+      <span class="su" style="margin-left:auto">${dh(x.quando)}</span></div>`).join("")
+    :'<div class="vaz">nada ainda</div>';
 }
 
 function config(){
   const G="https://github.com/leonardoborgesdev/operacao-nuvem/actions/workflows/";
-  const linhas=[["publica","8×/dia · 07:20 às 22:30","publica.yml"],
+  document.getElementById("autos").innerHTML=[
+    ["publica","8×/dia · 07:20 às 22:30","publica.yml"],
     ["dev","4×/dia · AutoReels","dev.yml"],
     ["responde","4×/dia · comentário + direct","responde.yml"],
-    ["coleta","1×/dia · 06:00 · alimenta este painel","coleta.yml"],
-    ["pulso","semanal · impede o cron de morrer","pulso.yml"]];
-  document.getElementById("autos").innerHTML=linhas.map(([a,b,c])=>
-    `<div class="slot"><span class="badge b-on">ativo</span>
-      <div><b>${a}</b><div class="rk-sub">${b}</div></div>
-      <a class="rk-v" href="${G+c}" target="_blank" rel="noopener">rodar</a></div>`).join("");
+    ["pulso-dados","de hora em hora · alimenta os avisos","pulso_dados.yml"],
+    ["coleta","1×/dia · 06:00","coleta.yml"],
+    ["pulso","semanal · mantém o cron vivo","pulso.yml"]].map(([a,b,c])=>
+    `<div class="slot"><span class="bd b-on">ativo</span>
+      <div><b>${a}</b><div class="su">${b}</div></div>
+      <a class="rv" href="${G+c}" target="_blank" rel="noopener">rodar</a></div>`).join("");
   const P=M.perfis||{};
   document.getElementById("cotas").innerHTML=Object.keys(P)
     .sort((a,b)=>(P[b].cota_usada||0)-(P[a].cota_usada||0)).map(k=>{
-      const p=P[k], teto=p.cota_teto||50, u=p.cota_usada||0;
+      const p=P[k],teto=p.cota_teto||50,u=p.cota_usada||0;
       return `<div class="mile"><span>@${k}</span><span class="${u>=teto*.8?"neg":"neu"}">${u}/${teto}</span></div>
-        <div class="bar2"><div class="fill" style="width:${Math.min(100,u/teto*100)}%"></div></div>`;
-    }).join("");
+        <div class="bar2"><div class="fill" style="width:${Math.min(100,u/teto*100)}%"></div></div>`}).join("");
 }
 
 function abrir(k){
-  const p=(M.perfis||{})[k]; if(!p) return;
-  const lista=(p.posts_lista||[]).slice().sort((a,b)=>b.v-a.v).slice(0,5);
+  const p=(M.perfis||{})[k];if(!p)return;
+  const top=(p.posts_lista||[]).slice().sort((a,b)=>b.v-a.v).slice(0,5);
   const eng=p.views?((p.likes+p.coments)/p.views*100):0;
   document.getElementById("modal").innerHTML=`
     <div class="mh"><img src="${esc(p.foto)}" onerror="this.style.visibility='hidden'">
-      <div><div style="font-size:19px;font-weight:700">@${k}</div>
-        <div class="sm">${esc(p.nome)||"—"} · página ${esc(p.pagina)||"—"}</div></div>
-      <button class="fechar" onclick="document.getElementById('veu').classList.remove('on')">✕</button></div>
-    ${p.bio?`<div class="sm" style="white-space:pre-wrap;margin-bottom:6px">${esc(p.bio)}</div>`:""}
+      <div><div style="font-size:18px;font-weight:700">@${k}</div>
+        <div class="sm">${esc(p.nome)||"—"}</div></div>
+      <button class="x" onclick="document.getElementById('veu').classList.remove('on')">✕</button></div>
+    ${p.bio?`<div class="sm" style="white-space:pre-wrap">${esc(p.bio)}</div>`:""}
     ${p.site?`<a href="${esc(p.site)}" target="_blank" rel="noopener">${esc(p.site)}</a>`:""}
-    <div class="mgrid">
-      <div class="mcell"><div class="lbl">Seguidores</div><div class="v">${n(p.seg)}</div></div>
-      <div class="mcell"><div class="lbl">Segue</div><div class="v">${n(p.segue)}</div></div>
-      <div class="mcell"><div class="lbl">Posts</div><div class="v">${n(p.total_posts||p.posts)}</div></div>
-      <div class="mcell"><div class="lbl">Views</div><div class="v">${curto(p.views)}</div></div>
-      <div class="mcell"><div class="lbl">Likes</div><div class="v">${curto(p.likes)}</div></div>
-      <div class="mcell"><div class="lbl">Coment.</div><div class="v">${n(p.coments)}</div></div>
-      <div class="mcell"><div class="lbl">Alcance</div><div class="v">${curto(p.alcance)}</div></div>
-      <div class="mcell"><div class="lbl">Engajamento</div><div class="v">${eng.toFixed(1).replace(".",",")}%</div></div>
-      <div class="mcell"><div class="lbl">Cota 24h</div><div class="v">${p.cota_usada||0}/${p.cota_teto||"—"}</div></div>
-    </div>
-    <h3>Top 5 posts</h3>
-    ${lista.map(x=>`<div class="slot">
-      <img class="thumb" src="${esc(x.t)}" onerror="this.style.visibility='hidden'">
-      <div style="min-width:0"><a href="${esc(x.u)}" target="_blank" rel="noopener" class="cap">${esc(x.leg)||"(sem legenda)"}</a>
-        <div class="rk-sub">${dh(x.q)}</div></div>
-      <div class="rk-v"><b>${n(x.v)}</b><div class="rk-sub">${n(x.l)} likes</div></div></div>`).join("")
-      ||'<div class="vazio">sem posts</div>'}`;
+    <div class="mg">
+      <div class="mc"><div class="lbl">Seguidores</div><div class="v">${n(p.seg)}</div></div>
+      <div class="mc"><div class="lbl">Segue</div><div class="v">${n(p.segue)}</div></div>
+      <div class="mc"><div class="lbl">Posts</div><div class="v">${n(p.total_posts||p.posts)}</div></div>
+      <div class="mc"><div class="lbl">Views</div><div class="v">${curto(p.views)}</div></div>
+      <div class="mc"><div class="lbl">Likes</div><div class="v">${curto(p.likes)}</div></div>
+      <div class="mc"><div class="lbl">Engajamento</div><div class="v">${eng.toFixed(1).replace(".",",")}%</div></div>
+      <div class="mc"><div class="lbl">Cota 24h</div><div class="v">${p.cota_usada||0}/${p.cota_teto||"—"}</div></div>
+    </div><h3>Top 5 posts</h3>
+    ${top.map(x=>`<div class="slot"><img class="tb" src="${esc(x.t)}" onerror="this.style.visibility='hidden'">
+      <div style="min-width:0"><a class="cap" href="${esc(x.u)}" target="_blank" rel="noopener">${
+        esc(x.leg)||"(sem legenda)"}</a><div class="su">${dh(x.q)}</div></div>
+      <div class="rv"><b>${n(x.v)}</b><div class="su">${n(x.l)} likes</div></div></div>`).join("")
+      ||'<div class="vaz">sem posts</div>'}`;
   document.getElementById("veu").classList.add("on");
 }
 
 function pinta(){
-  if(!M) return;
+  if(!M)return;
   const S=serie();
-  kpis(S); grafico(S); meta(S); ranking(); canais(); posts(); agenda(); config();
-  document.getElementById("quando").textContent="dados de "+dh(M.quando);
+  kpis(S);grafico(S);meta(S);ranking();canais();posts();coments();agenda();config();
+  document.getElementById("quando").textContent="coleta de "+dh(M.quando);
+  if(PULSO.length) document.getElementById("ultPulso").textContent=
+    "último pulso "+dh(PULSO.at(-1).quando);
 }
 
 async function carrega(){
-  const [m,pub,dev,ag]=await Promise.all([pega("metricas.json"),pega("publicados.json"),
-    pega("dev_publicados.json"),pega("agenda.json")]);
+  const [m,pub,dev,ag,pu]=await Promise.all([pega("metricas.json"),pega("publicados.json"),
+    pega("dev_publicados.json"),pega("agenda.json"),pega("pulso.json")]);
   if(!m){document.getElementById("quando").textContent="não li os dados";return}
-  M=m; PUB=pub||[]; DEV=dev||[]; AG=ag;
+  M=m;PUB=pub||[];DEV=dev||[];AG=ag;PULSO=Array.isArray(pu)?pu:[];
   const sel=document.getElementById("selPerfil");
-  if(sel.options.length<2){
-    Object.keys(M.perfis||{}).sort().forEach(k=>{
-      const o=document.createElement("option"); o.value=k; o.textContent="@"+k; sel.add(o);});
-  }
-  pinta();
+  if(sel.options.length<2) Object.keys(M.perfis||{}).sort().forEach(k=>{
+    const o=document.createElement("option");o.value=k;o.textContent="@"+k;sel.add(o)});
+  avisa();pinta();
 }
 
-/* eventos */
+const TIT={geral:"Visão geral",canais:"Canais",posts:"Posts",
+  coments:"Comentários",agenda:"Calendário & fila",config:"Configuração"};
 document.addEventListener("click",e=>{
-  const tab=e.target.closest(".tab");
-  if(tab){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t===tab));
-    document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+tab.dataset.p));return}
+  const b=e.target.closest(".nav button");
+  if(b){document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("on",x===b));
+    document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+b.dataset.p));
+    document.getElementById("titulo").textContent=TIT[b.dataset.p];return}
   const f=e.target.closest(".f");
   if(f){DIAS=+f.dataset.d;document.querySelectorAll(".f").forEach(x=>x.classList.toggle("on",x===f));pinta();return}
   const th=e.target.closest("th[data-o]");
   if(th){desc=ordC===th.dataset.o?!desc:true;ordC=th.dataset.o;canais();return}
   const tp=e.target.closest("th[data-op]");
   if(tp){desc=ordP===tp.dataset.op?!desc:true;ordP=tp.dataset.op;posts();return}
-  const alvo=e.target.closest("[data-perfil]");
-  if(alvo){abrir(alvo.dataset.perfil);return}
+  const al=e.target.closest("[data-perfil]");
+  if(al){abrir(al.dataset.perfil);return}
   if(e.target.id==="veu") e.target.classList.remove("on");
 });
 document.getElementById("selPerfil").onchange=e=>{PERFIL=e.target.value;pinta()};
 addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("veu").classList.remove("on")});
-
 setInterval(()=>{document.getElementById("relogio").textContent=
   new Date().toLocaleTimeString("pt-BR")},1000);
-carrega(); setInterval(carrega,RECARGA);
+carrega();setInterval(carrega,RECARGA);
 </script>
 </body>
 </html>

@@ -183,7 +183,7 @@ tbody tr:hover{background:var(--up)}
     </div>
 
     <div class="filtros">
-      <button class="f" data-d="0.042">1 hora</button>
+      <button class="f" data-d="0.167">4 horas</button>
       <button class="f on" data-d="1">hoje</button>
       <button class="f" data-d="7">7 dias</button>
       <button class="f" data-d="30">30 dias</button>
@@ -363,7 +363,7 @@ function kpis(S){
     +cel("Engajamento",eng.toFixed(1).replace(".",",")+"%")
     +cel("Seguidores",n(sm("seg")))+cel("Views totais",curto(sm("views")))
     +cel("Alcance total",curto(sm("alcance")))+cel("Posts",n(sm("posts")));
-  const nomes={0.042:"última hora",1:"hoje",0:"histórico completo"};
+  const nomes={0.167:"últimas 4 horas",1:"hoje",0:"histórico completo"};
   document.getElementById("resumo").textContent=
     (PERFIL?"@"+PERFIL:`${alvo.length} canais`)+" · "+(nomes[DIAS]||DIAS+" dias");
 }
